@@ -1,0 +1,4 @@
+(println "Serving files from the current directory at http://localhost:8888")
+
+(joker.http/start-file-server "localhost:8888" (joker.os/cwd))
+

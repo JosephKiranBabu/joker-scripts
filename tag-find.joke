@@ -1,0 +1,21 @@
+(def tag "tag")
+
+(def dir-name ".")
+
+(def file-listing (joker.os/ls dir-name))
+
+(def start-sequence "#+")
+
+(defn tag-line?
+  [line]
+  (and (joker.string/starts-with? line start-sequence) (joker.string/includes? line tag)))
+
+(defn contains-tag?
+  [tag file-name]
+  (let [contents (joker.string/split-lines (slurp file-name))]
+   (if (any? (map tag-line? contents))
+     file-name
+     nil
+   )))
+
+(println (map #(contains-tag? tag (:name %)) file-listing))
